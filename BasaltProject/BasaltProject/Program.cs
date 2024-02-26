@@ -22,7 +22,7 @@ class Program
             var Country = Console.ReadLine();
             var apiUrl = $"https://jsearch.p.rapidapi.com/search?query={Uri.EscapeDataString(JobTittle)} in {Uri.EscapeDataString(Country)}&page=1&num_pages=1";
             var jSearchRequest = new JSearchRequest
-            {
+            {//Give Parameters values
 
                 X_RapidAPI_Host = "jsearch.p.rapidapi.com",
                 Query = $"{JobTittle} in {Country}",
@@ -30,7 +30,7 @@ class Program
                 Num_Pages = 1,
                 Date_Posted = DatePostedEnum.All,
                 Remote_Jobs_Only = false,
-                // ... other parameters
+                
             };
             GetSearchByJob(apiUrl, jSearchRequest);
         }
@@ -98,19 +98,14 @@ class Program
             }
             Console.ReadLine();
         }
-
         return response.Content.ToString();
         }
 
         catch (Exception ex)
-       
-        {
+        {//Handle the exception
             Console.WriteLine(ex.Message);
             return "";
         }
-
-
-
     }
     static string GetCompanyByNameb(string apiUrl, string Company_Name)
     {
@@ -136,7 +131,7 @@ class Program
             for (int i = 0; i < CResponse.Data.Count; i++)
             {
 
-                    //Print out the Comany Info
+                    //Print out the Company Info
                 Console.WriteLine("#####################Company Infomation#########################################");
                 Console.WriteLine("Company Name:" + CResponse.Data[i].Name);
                 Console.WriteLine("About :" + CResponse.Data[i].About);
