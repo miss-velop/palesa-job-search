@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using RestSharp;
 using System.Net.Http.Headers;
 using BasaltProject.SearchJobModel;
@@ -22,7 +22,7 @@ class Program
             var Country = Console.ReadLine();
             var apiUrl = $"https://jsearch.p.rapidapi.com/search?query={Uri.EscapeDataString(JobTittle)} in {Uri.EscapeDataString(Country)}&page=1&num_pages=1";
             var jSearchRequest = new JSearchRequest
-            {//Give Parameters values
+            {
 
                 X_RapidAPI_Host = "jsearch.p.rapidapi.com",
                 Query = $"{JobTittle} in {Country}",
@@ -30,7 +30,7 @@ class Program
                 Num_Pages = 1,
                 Date_Posted = DatePostedEnum.All,
                 Remote_Jobs_Only = false,
-                
+                // ... other parameters
             };
             GetSearchByJob(apiUrl, jSearchRequest);
         }
@@ -81,6 +81,7 @@ class Program
                 Console.WriteLine("----------------------------------------------------");
                 Console.WriteLine("Would you like to know more about the Employer: (Y/N)");
                 var companyName= JResponse.Data[i].EmployerName.ToString();
+                var JobLink= JResponse.Data[i].JobApplyLink.ToString();
             // Capture a single key press
                 ConsoleKeyInfo key = Console.ReadKey();
                 // Check the pressed key
@@ -88,7 +89,7 @@ class Program
                 {
                     Console.WriteLine("\nYou pressed 'Y'. Geting Company info...");
                     Console.WriteLine("Fetching data...");
-                    GetCompanyByNameb(apiUrl, companyName);
+                    GetCompanyByNameb(apiUrl, companyName,JobLink);
                 }
                 else if (key.Key == ConsoleKey.N)
                 {
@@ -98,16 +99,21 @@ class Program
             }
             Console.ReadLine();
         }
+
         return response.Content.ToString();
         }
 
         catch (Exception ex)
-        {//Handle the exception
+       
+        {
             Console.WriteLine(ex.Message);
             return "";
         }
+
+
+
     }
-    static string GetCompanyByNameb(string apiUrl, string Company_Name)
+    static string GetCompanyByNameb(string apiUrl, string Company_Name, string JobLink)
     {
         try
         { 
@@ -131,7 +137,7 @@ class Program
             for (int i = 0; i < CResponse.Data.Count; i++)
             {
 
-                    //Print out the Company Info
+                    //Print out the Comany Info
                 Console.WriteLine("#####################Company Infomation#########################################");
                 Console.WriteLine("Company Name:" + CResponse.Data[i].Name);
                 Console.WriteLine("About :" + CResponse.Data[i].About);
@@ -139,12 +145,31 @@ class Program
                 Console.WriteLine("Website:" + CResponse.Data[i].Website);
                 Console.WriteLine("Business Status" + CResponse.Data[i].BusinessStatus);
                 Console.WriteLine("Company Type" + CResponse.Data[i].Type);
-                Console.WriteLine("Would you like to know more about the Employer: (Y/N)");
+                Console.WriteLine("Would you like to apply to the Job: (Y/N)");
 
-            }
-        }
+                    ConsoleKeyInfo key = Console.ReadKey();
+                    // Check the pressed key
+                    if (key.Key == ConsoleKey.Y)
+                    {
+                        Console.WriteLine("\nHere is the Link Below");
+                        Console.WriteLine("Fetching data...");
+                        Console.WriteLine(JobLink);
+                       
+                    }
+                    else if (key.Key == ConsoleKey.N)
+                    {
+                        Console.WriteLine(">>>>>>>>>>>>>>>Goood Luck>>>>>>>>>>>>>>>>>>>>>>>>");
+                        i++;
+                    }
+                }
+               
 
-        return response.Content.ToString();
+                Console.WriteLine(">>>>>>>>>>>>>>>Goood Luck>>>>>>>>>>>>>>>>>>>>>>>>");
+                Console.WriteLine(">>>>>>>>>>>>>>>Press Any Key to End>>>>>>>>>>>>>>>>>>>>>>>>");
+
+                Console.ReadLine();
+
+                return response.Content.ToString();
         }
          catch (Exception ex)
         {
