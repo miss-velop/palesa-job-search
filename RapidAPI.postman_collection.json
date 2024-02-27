@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "54a57859-ca92-4c65-9d92-ecc238ec89de",
+		"name": "RapidAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13900309",
+		"_collection_link": "https://dark-eclipse-50004.postman.co/workspace/902c5e7f-48f5-4f29-8df9-0590ab0d6ce5/collection/13900309-54a57859-ca92-4c65-9d92-ecc238ec89de?action=share&source=collection_link&creator=13900309"
+	},
+	"item": [
+		{
+			"name": "GetJob",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "This is an API that will get a list of Job according to your query.\n\nAnd bring down information about the job, Like Job Description, Company, salary if its listen on the job.and a link to apply"
+			},
+			"response": []
+		},
+		{
+			"name": "GetcompanyInfo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"description": "This gets the company name that you have searched for and are interested on"
+			},
+			"response": []
+		}
+	]
+}
