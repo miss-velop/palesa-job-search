@@ -48,9 +48,6 @@ class Program
 
         try
         {
-
-    
-
         var request = new RestRequest();
         var client = new RestClient(apiUrl);
         request.Method = Method.Get;
@@ -93,10 +90,12 @@ class Program
                 }
                 else if (key.Key == ConsoleKey.N)
                 {
-                    Console.WriteLine("\nYou pressed 'N'. Next job...");
-                    i++;
+                    Console.WriteLine("\nYou pressed 'N'. ");
+                   
                 }
-            }
+            
+                
+                }
             Console.ReadLine();
         }
 
@@ -131,46 +130,50 @@ class Program
 
         var response = client.Execute(request);
 
-        if (response != null)
-        {
-            var CResponse = JsonConvert.DeserializeObject<CompanySearchResponse>(response.Content);
-            for (int i = 0; i < CResponse.Data.Count; i++)
+            if (response != null)
             {
+                var CResponse = JsonConvert.DeserializeObject<CompanySearchResponse>(response.Content);
+                for (int i = 0; i < CResponse.Data.Count; i++)
+                {
 
                     //Print out the Comany Info
-                Console.WriteLine("#####################Company Infomation#########################################");
-                Console.WriteLine("Company Name:" + CResponse.Data[i].Name);
-                Console.WriteLine("About :" + CResponse.Data[i].About);
-                Console.WriteLine("Adress" + CResponse.Data[i].Address);
-                Console.WriteLine("Website:" + CResponse.Data[i].Website);
-                Console.WriteLine("Business Status" + CResponse.Data[i].BusinessStatus);
-                Console.WriteLine("Company Type" + CResponse.Data[i].Type);
-                Console.WriteLine("Would you like to apply to the Job: (Y/N)");
+                    Console.WriteLine("#####################Company Infomation#########################################");
+                    Console.WriteLine("Company Name:" + CResponse.Data[i].Name);
+                    Console.WriteLine("About :" + CResponse.Data[i].About);
+                    Console.WriteLine("Adress" + CResponse.Data[i].Address);
+                    Console.WriteLine("Website:" + CResponse.Data[i].Website);
+                    Console.WriteLine("Business Status" + CResponse.Data[i].BusinessStatus);
+                    Console.WriteLine("Company Type" + CResponse.Data[i].Type);
+                    Console.WriteLine("#############################################################");
+                    Console.WriteLine("Would you like to apply to the Job: (Y/N)");
 
                     ConsoleKeyInfo key = Console.ReadKey();
                     // Check the pressed key
+                    
+                    
                     if (key.Key == ConsoleKey.Y)
                     {
                         Console.WriteLine("\nHere is the Link Below");
                         Console.WriteLine("Fetching data...");
                         Console.WriteLine(JobLink);
-                       
+
                     }
                     else if (key.Key == ConsoleKey.N)
                     {
-                        Console.WriteLine(">>>>>>>>>>>>>>>Goood Luck>>>>>>>>>>>>>>>>>>>>>>>>");
+                        Console.WriteLine(">>>>>>>>>>>>>>>Goood Luck!!!>>>>>>>>>>>>>>>>>>>>>>>>");
                         i++;
                     }
                 }
-               
+
 
                 Console.WriteLine(">>>>>>>>>>>>>>>Goood Luck>>>>>>>>>>>>>>>>>>>>>>>>");
-                Console.WriteLine(">>>>>>>>>>>>>>>Press Any Key to End>>>>>>>>>>>>>>>>>>>>>>>>");
+                Console.WriteLine(">>>>>>>>>>>>>>>Press Any Key to End!!!!!!!!!!>>>>>>>>>>>>>>>>>>>>>>>>");
 
                 Console.ReadLine();
-
+            }
                 return response.Content.ToString();
         }
+        
          catch (Exception ex)
         {
             //Handle the error.
